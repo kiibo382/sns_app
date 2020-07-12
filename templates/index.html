@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>トップ画面</h1>
+
+    {% if user.is_authenticated %}
+    <p><a href="{% url 'logout' %}">ログアウト</a></p>
+    {% else %}
+    <p><a href="{% url 'login' %}">ログイン</a></p>
+    {% endif %}
+
+{%endblock%}
