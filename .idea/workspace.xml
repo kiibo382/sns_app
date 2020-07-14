@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55d92bb4-4e92-4d4b-990e-0f9ba18d5dbd" name="Default Changelist" comment="" />
+    <list default="true" id="55d92bb4-4e92-4d4b-990e-0f9ba18d5dbd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/81701.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitterclone/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitterclone/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitterclone/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitterclone/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitterclone/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitterclone/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitterclone/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitterclone/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +35,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -53,6 +69,12 @@
       <workItem from="1594462358632" duration="3513000" />
       <workItem from="1594517336246" duration="476000" />
       <workItem from="1594519565126" duration="2419000" />
+      <workItem from="1594535438818" duration="8055000" />
+      <workItem from="1594544475456" duration="1273000" />
+      <workItem from="1594699989416" duration="3633000" />
+      <workItem from="1594718801449" duration="4920000" />
+      <workItem from="1594724492283" duration="806000" />
+      <workItem from="1594727118880" duration="1800000" />
     </task>
     <servers />
   </component>
@@ -60,6 +82,10 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="438" y="97" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594543140901">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="438" y="97" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1594543140901" />
     <state x="839" y="237" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1594422216463">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -68,5 +94,9 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="792" y="190" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1594464444739" />
+    <state x="645" y="185" key="search.everywhere.popup" timestamp="1594544966893">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="645" y="185" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1594544966893" />
   </component>
 </project>

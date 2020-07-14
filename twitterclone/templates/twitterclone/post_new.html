@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Add page</h1>
+<form action="{% url 'twitterclone:post_new' %}" enctype="multipart/form-data" method="POST">
+ {% csrf_token %}
+ {{ form.as_p }}
+ <button type="submit">投稿する</button>
+</form>
+
+{% endblock %}

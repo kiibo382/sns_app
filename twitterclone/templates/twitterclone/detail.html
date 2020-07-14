@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>detail page</h1>
+<p>内容：{{ post.text }}</p>
+<p>#{{ post.tag }}</p>
+<button><a href="{% url 'twitterclone:edit' post.pk %}">編集</a></button>
+<button><a href="{% url 'twitterclone:delete' post.pk %}">削除</a></button>
+
+{% endblock %}
