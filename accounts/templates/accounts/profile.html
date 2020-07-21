@@ -25,10 +25,14 @@
     <p>フォロワー</p>
     {% followers user %}
     <p>フォロー申請中</p>
-    {{request_follow}}
+    {% for request_follow in request_follows %}
+        {{request_follow}}
+    {% endfor %}
     <br>
     <p>フォローリクエスト</p>
-    {{requested_follow}}
+    {% for requested_follow in request_follows %}
+        {{requested_follow}}
+    {% endfor %}
     {% if user == request.user %}
         <input type="submit" name="accept" value="accept">
     {% endif %}
@@ -36,6 +40,16 @@
     <p>ブロック中</p>
     {% blocking user %}
 
+    <p>お気に入りツイート</p>
+    <ul>
+        {% for like_post in like_posts %}
+            <a href="{% url 'twitterclone:detail' pk=like_post.post.id %}">
+                <li>{{like_post.post}}</li>
+            </a>
+        {% endfor %}
+    </ul>
+
+    <p>自分のツイート</p>
      {% for post in posts%}
      <a href="{% url 'twitterclone:detail' pk=post.id %}">
        <div class="card m-4" style="min-width: 300px; max-height: 490px;">

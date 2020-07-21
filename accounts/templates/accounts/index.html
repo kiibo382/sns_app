@@ -6,8 +6,8 @@
     {% for user in user_list %}
     <a href="{% url 'accounts:profile' user_id=user.id %}">
        <p>{{user.username}}</p>
-        <p>{{user.followings_count}}</p>
-        <p>{{user.followers_count}}</p>
+        <p>{{followings_count}}</p>
+        <p>{{followers_count}}</p>
        <hr>
     </a>
     {% endfor %}

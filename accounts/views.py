@@ -1,9 +1,7 @@
-from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from django.views import View
 from django.views.generic import CreateView, DetailView, ListView
 from django.urls import reverse_lazy
 from . import forms
@@ -51,27 +49,24 @@ def profile(request, user_id):
            other_user = User.objects.get(pk=user_id)
            Block.objects.remove_block(request.user, other_user)
 
-    follwers = Follow.objects.followers(user)
-    followings = Follow.objects.following(user)
     other_user = User.objects.get(pk=user_id)
-    friends=Friend.objects.are_friends(request.user, other_user)
     blocking_user = Block.objects.is_blocked(request.user, other_user)
-    request_follow = Friend.objects.sent_requests(user)
-    requested_follow = Friend.objects.unread_requests(user)
+    request_follows = Friend.objects.sent_requests(user)
+    requested_follows = Friend.objects.unread_requests(user)
+    like_posts = user.like_user.all()
     if request.method == 'POST':
         if 'accept' in request.POST:
-            friend_request = FriendshipRequest.objects.get(to_user=requested_follow.id)
-            friend_request.accept()
+            for requested_follow in requested_follows:
+                friend_request = FriendshipRequest.objects.get(to_user=requested_follow.id)
+                friend_request.accept()
 
     return render(request, 'accounts/profile.html',
                  {'user': user,
                   'posts': posts,
-                  'followers': follwers,
-                  'followings': followings,
                   'blocking_user': blocking_user,
-                  'friends': friends,
-                  'requesting-follow': request_follow,
-                  'requested-follow': requested_follow
+                  'requesting-follows': request_follows,
+                  'requested-follows': requested_follows,
+                  'like_posts': like_posts,
                   }
                  )
 
@@ -79,9 +74,3 @@ class IndexView(ListView):
     model = User
     template_name = "accounts/index.html"
     paginate_by = 20
-
-def index(request):
-    followings_count = Follow.objects.following(request.user).count()
-    followers_count = Follow.objects.followers(request.user).count()
-    render({'followings_count': followings_count,
-            'followers_counts': followers_count})

@@ -7,5 +7,11 @@
 <p>#{{ post.tag }}</p>
 <button><a href="{% url 'twitterclone:edit' post.pk %}">編集</a></button>
 <button><a href="{% url 'twitterclone:delete' post.pk %}">削除</a></button>
+<a href="{% url 'twitterclone:like' post.id %}">
+    <p>お気に入り登録</p>
+    {% for message in messages %}
+        <p> {{ message }}</p>
+    {% endfor %}
+</a>{{ post.like_num }}
 
 {% endblock %}
