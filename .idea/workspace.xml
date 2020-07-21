@@ -2,17 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55d92bb4-4e92-4d4b-990e-0f9ba18d5dbd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/81701.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/81701.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/81701.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/logout.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/logout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/twitterclone/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitterclone/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitterclone/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitterclone/migrations/0002_auto_20200712_1534.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/twitterclone/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitterclone/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitterclone/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitterclone/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitterclone/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitterclone/views.py" afterDir="false" />
@@ -38,7 +45,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../kadai" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -74,7 +81,36 @@
       <workItem from="1594699989416" duration="3633000" />
       <workItem from="1594718801449" duration="4920000" />
       <workItem from="1594724492283" duration="806000" />
-      <workItem from="1594727118880" duration="1800000" />
+      <workItem from="1594727118880" duration="5859000" />
+      <workItem from="1594765485891" duration="1856000" />
+      <workItem from="1594768991085" duration="704000" />
+      <workItem from="1594775547833" duration="4179000" />
+      <workItem from="1594780015974" duration="1831000" />
+      <workItem from="1594789006303" duration="130000" />
+      <workItem from="1594981199063" duration="3917000" />
+      <workItem from="1594988771054" duration="1601000" />
+      <workItem from="1594990412235" duration="2117000" />
+      <workItem from="1595026672850" duration="1097000" />
+      <workItem from="1595028725304" duration="4326000" />
+      <workItem from="1595055370812" duration="3862000" />
+      <workItem from="1595059680008" duration="408000" />
+      <workItem from="1595061011397" duration="3599000" />
+      <workItem from="1595067629910" duration="1025000" />
+      <workItem from="1595075155167" duration="7995000" />
+      <workItem from="1595110977833" duration="3658000" />
+      <workItem from="1595115209113" duration="482000" />
+      <workItem from="1595132012337" duration="1065000" />
+      <workItem from="1595135978814" duration="3899000" />
+      <workItem from="1595139979595" duration="333000" />
+      <workItem from="1595140902028" duration="3978000" />
+      <workItem from="1595149383556" duration="3871000" />
+      <workItem from="1595154809645" duration="962000" />
+      <workItem from="1595234789353" duration="4037000" />
+      <workItem from="1595284948488" duration="419000" />
+      <workItem from="1595288455060" duration="3458000" />
+      <workItem from="1595292280349" duration="4383000" />
+      <workItem from="1595304065220" duration="1239000" />
+      <workItem from="1595307745947" duration="704000" />
     </task>
     <servers />
   </component>
@@ -90,10 +126,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="839" y="237" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1594422216463" />
-    <state x="792" y="190" key="FileChooserDialogImpl" timestamp="1594464444739">
+    <state x="797" y="182" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1595235213059">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="792" y="190" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1594464444739" />
+    <state x="797" y="182" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1595235213059" />
+    <state x="792" y="190" key="FileChooserDialogImpl" timestamp="1595292294952">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="792" y="190" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1595292294952" />
     <state x="645" y="185" key="search.everywhere.popup" timestamp="1594544966893">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

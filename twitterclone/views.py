@@ -5,7 +5,7 @@ from .forms import PostAddForm
 from .models import Post, Tag
 from django.utils import timezone
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 class IndexView(ListView):
     model = Post
@@ -34,17 +34,6 @@ def post_new(request):
         form = PostAddForm()
    return render(request, 'twitterclone/post_new.html', {'form': form})
 
-# def edit(request, post_id):
-#    post = get_object_or_404(Post, id=post_id)
-#    if request.method == "POST":
-#        form = PostAddForm(request.POST, instance=post)
-#        if form.is_valid():
-#            form.save()
-#            return redirect('twitterclone:detail', post_id=post.id)
-#    else:
-#        form = PostAddForm(instance=post)
-#    return render(request, 'twitterclone/edit.html', {'form': form, 'post':post })
-
 class EditView(UpdateView):
     model = Post
     template_name = 'twitterclone/edit.html'
@@ -52,12 +41,10 @@ class EditView(UpdateView):
     success_url = "/"
 
     def form_valid(self, form):
-        ''' バリデーションを通った時 '''
         messages.success(self.request, "保存しました")
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        ''' バリデーションに失敗した時 '''
         messages.warning(self.request, "保存できませんでした")
         return super().form_invalid(form)
 

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Users</h1>
+
+    {% for user in user_list %}
+    <a href="{% url 'accounts:profile' user_id=user.id %}">
+       <p>{{user.username}}</p>
+        <p>{{user.followings_count}}</p>
+        <p>{{user.followers_count}}</p>
+       <hr>
+    </a>
+    {% endfor %}
+{% endblock %}

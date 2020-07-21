@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center my-5">{{ user.username }}のページ</h1>
+
+ <form action="{% url 'accounts:profile' user_id=user.id %}" method="post">
+  {% csrf_token %}
+  {% if not user == request.user %}
+      {% if not friends == True %}
+        <input type="submit" name="request-follow" value="フォロー申請" onclick="disabled = true;">
+      {% else %}
+         <input type="submit" name="remove-follow" value="フォロー解除" onclick="disabled = true;">
+      {% endif %}
+         <br>
+      {% if not blocking_user == True %}
+        <input type="submit" name="block" value="ブロック">
+      {% else %}
+        <input type="submit" name="remove_block" value="ブロック解除">
+      {% endif %}
+  {% endif %}
+</form>
+ <p>{% load friendshiptags %}</p>
+    <p>フォロー</p>
+    {% following user %}
+    <p>フォロワー</p>
+    {% followers user %}
+    <p>フォロー申請中</p>
+    {{request_follow}}
+    <br>
+    <p>フォローリクエスト</p>
+    {{requested_follow}}
+    {% if user == request.user %}
+        <input type="submit" name="accept" value="accept">
+    {% endif %}
+    <br>
+    <p>ブロック中</p>
+    {% blocking user %}
+
+     {% for post in posts%}
+     <a href="{% url 'twitterclone:detail' pk=post.id %}">
+       <div class="card m-4" style="min-width: 300px; max-height: 490px;">
+         <div class="card-body">
+           <p class="card-text">
+             {{ post.text}}
+           </p>
+           <p>#{{post.tag}}</p>
+           <p>{{post.created_at}}</p>
+         </div>
+        </div>
+     {% endfor %}
+ </a>
+
+{% endblock %}
