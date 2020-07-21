@@ -2,3 +2,9 @@ local_settings.py
 db.sqlite3
 manage.py
 README.md
+project/
+__init.py__
+apps.py
+tests.py
+db.sqlite3
+manage.py
