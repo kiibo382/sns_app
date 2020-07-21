@@ -1,11 +1,11 @@
 local_settings.py 
 db.sqlite3
 manage.py
-README.md
 project
-__init.py__
+__init__.py
 apps.py
 tests.py
 db.sqlite3
 manage.py
 .idea
+__pyache__
