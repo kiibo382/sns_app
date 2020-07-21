@@ -8,4 +8,4 @@ apps.py
 tests.py
 db.sqlite3
 manage.py
-./.idea/*
+.idea/*
