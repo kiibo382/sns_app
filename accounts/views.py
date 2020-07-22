@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from . import forms
 from django.shortcuts import render,  get_object_or_404
 from friendship.models import Friend, Follow, Block, FriendshipRequest
+from .forms import ProfileForm
 
 
 class Login(LoginView):
@@ -68,12 +69,13 @@ def profile(request, user_id):
 
     if request.method == 'POST':
         if 'accept' in request.POST:
-            friend_request = FriendshipRequest.objects.get(to_user=ed_follow.from_user.id)
+            friend_request = FriendshipRequest.objects.get(to_user=request.POST.get('ed_follow').id)
             friend_request.accept()
+            Follow.objects.add_follower(request.user, request.POST.get('ed_follow'))
 
     if request.method == 'POST':
         if 'reject' in request.POST:
-            friend_request = FriendshipRequest.objects.get(to_user=ed_follow.from_user.id)
+            friend_request = FriendshipRequest.objects.get(to_user=request.POST.get('ed_follow'))
             friend_request.reject()
 
     return render(request, 'accounts/profile.html',

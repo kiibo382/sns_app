@@ -44,8 +44,12 @@
         <ul>
             {% for requested_follow in requested_follows %}
                 <li>{{requested_follow.from_user}}</li>
-                <form action="{% url 'accounts:profile' user_id=user.id ed_follow=requested_follow %}">
+                <form action="{% url 'accounts:profile' user_id=user.id %}">
+                    <input type="hidden" name="ed_follow" value="requested_follow.from_user">
                     <input type="submit" name="accept" value="accept">
+                </form>
+                <form action="{% url 'accounts:profile' user_id=user.id %}">
+                    <input type="hidden" name="ed_follow" value="requested_follow.from_user">
                     <input type="submit" name="reject" value="reject">
                 </form>
             {% endfor %}
