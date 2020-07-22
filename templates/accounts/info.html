@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+    <a href="{% url 'accounts:profile' user_id=user.id %}"><p>ユーザーページへ戻る</p></a>
+    <p>{% load friendshiptags %}</p>
+    <p>フォロー</p>
+    <ul>
+        {% for following in followings %}
+            <li>{{following}}</li>
+        {% endfor %}
+    </ul>
+    <p>フォロワー</p>
+    <ul>
+        {% for follower in followers %}
+            <li>{{follower}}</li>
+        {% endfor %}
+    </ul>
+    {% if user == request.user %}
+        <p>フォロー申請中</p>
+        <ul>
+            {% for requesting_follow in requesting_follows %}
+                <li>{{requesting_follow.to_user}}</li>
+            {% endfor %}
+        </ul>
+        <br>
+        <p>フォローリクエスト</p>
+        <ul>
+            {% for requested_follow in requested_follows %}
+                <li>{{requested_follow.from_user}}</li>
+                {% if requested_follow.from_user in followers == False %}
+                    {% if requested_follow.from_user in blocking_user == False %}
+                        <form action="{% url 'accounts:profile' user_id=user.id %}">
+                            <input type="hidden" name="ed_follow" value="requested_follow.from_user">
+                            <input type="submit" name="accept" value="accept">
+                        </form>
+                        <form action="{% url 'accounts:profile' user_id=user.id %}">
+                            <input type="hidden" name="ed_follow" value="requested_follow.from_user">
+                            <input type="submit" name="reject" value="reject">
+                        </form>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <br>
+        <p>ブロック中</p>
+        {% blocking user %}
+    {% endif %}
+
+{% endblock %}

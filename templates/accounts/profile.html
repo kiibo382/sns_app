@@ -7,7 +7,9 @@
   {% csrf_token %}
   {% if not user == request.user %}
       {% if not friends == True %}
-        <input type="submit" name="request_follow" value="request_follow">
+        {% if user in requesting_follows == False %}
+            <input type="submit" name="request_follow" value="request_follow">
+        {% endif %}
       {% else %}
          <input type="submit" name="remove_follow" value="remove_follow">
       {% endif %}
@@ -18,46 +20,10 @@
         <input type="submit" name="remove_block" value="ブロック解除">
       {% endif %}
   {% endif %}
+  <br>
+  <br>
+  <a href="{% url 'accounts:info' user_id=user.id %}"><p>ユーザー詳細情報</p></a>
   </form>
-    <p>{% load friendshiptags %}</p>
-    <p>フォロー</p>
-    <ul>
-        {% for following in followings %}
-            <li>{{following}}</li>
-        {% endfor %}
-    </ul>
-    <p>フォロワー</p>
-    <ul>
-        {% for follower in followers %}
-            <li>{{follower}}</li>
-        {% endfor %}
-    </ul>
-    {% if user == request.user %}
-        <p>フォロー申請中</p>
-        <ul>
-            {% for requesting_follow in requesting_follows %}
-                <li>{{requesting_follow.to_user}}</li>
-            {% endfor %}
-        </ul>
-        <br>
-        <p>フォローリクエスト</p>
-        <ul>
-            {% for requested_follow in requested_follows %}
-                <li>{{requested_follow.from_user}}</li>
-                <form action="{% url 'accounts:profile' user_id=user.id %}">
-                    <input type="hidden" name="ed_follow" value="requested_follow.from_user">
-                    <input type="submit" name="accept" value="accept">
-                </form>
-                <form action="{% url 'accounts:profile' user_id=user.id %}">
-                    <input type="hidden" name="ed_follow" value="requested_follow.from_user">
-                    <input type="submit" name="reject" value="reject">
-                </form>
-            {% endfor %}
-        </ul>
-        <br>
-        <p>ブロック中</p>
-        {% blocking user %}
-    {% endif %}
 
     <p>お気に入りツイート</p>
     <ul>

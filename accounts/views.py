@@ -7,8 +7,6 @@ from django.urls import reverse_lazy
 from . import forms
 from django.shortcuts import render,  get_object_or_404
 from friendship.models import Friend, Follow, Block, FriendshipRequest
-from .forms import ProfileForm
-
 
 class Login(LoginView):
     form_class = forms.LoginForm
@@ -26,37 +24,47 @@ class UserCreateView(CreateView):
 def profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
     posts = user.post_set.all().order_by('-published_date')
-    if request.method == 'POST':
-       if 'request_follow' in request.POST:
-           other_user = User.objects.get(pk=user_id)
-           Friend.objects.add_friend(
-               request.user,  # The sender
-               other_user,  # The recipient
-            )
-
-    if request.method == 'POST':
-        if 'remove_follow' in request.POST:
-            other_user = User.objects.get(pk=user_id)
-            Friend.objects.remove_friend(request.user, other_user)
-
-    if request.method == 'POST':
-        if 'block' in request.POST:
-           other_user = User.objects.get(pk=user_id)
-           Block.objects.add_block(request.user, other_user)
-
-    if request.method == 'POST':
-        if 'remove_block' in request.POST:
-           other_user = User.objects.get(pk=user_id)
-           Block.objects.remove_block(request.user, other_user)
-
-    followings = Follow.objects.following(user)
-    followers = Follow.objects.followers(user)
     other_user = User.objects.get(id=user_id)
     friends = Friend.objects.are_friends(request.user, other_user)
     blocking_user = Block.objects.is_blocked(request.user, other_user)
+    like_posts = user.like_user.all()
+    requesting_follows = Friend.objects.sent_requests(user=request.user)
+    if request.method == 'POST':
+        if 'request_follow' in request.POST:
+           Friend.objects.add_friend(request.user, other_user)
+        if 'remove_follow' in request.POST:
+            Friend.objects.remove_friend(request.user, other_user)
+        if 'block' in request.POST:
+           Block.objects.add_block(request.user, other_user)
+        if 'remove_block' in request.POST:
+           Block.objects.remove_block(request.user, other_user)
+
+    return render(request, 'accounts/profile.html',
+                 {'user': user, 'posts': posts,
+                  'friends': friends,
+                  'blocking_user': blocking_user,
+                  'like_posts': like_posts,
+                  'requesting_follows': requesting_follows})
+
+def info(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    following = Follow.objects.following(user)
+    followers = Follow.objects.followers(user)
+    other_user = User.objects.get(id=user_id)
+    friends = Friend.objects.are_friends(request.user, other_user)
     requesting_follows = Friend.objects.sent_requests(user=user)
     requested_follows = Friend.objects.unread_requests(user=user)
-    like_posts = user.like_user.all()
+    blocking_user = Block.objects.is_blocked(request.user, other_user)
+    if request.method == 'POST':
+        if 'accept' in request.POST:
+            friend_request = FriendshipRequest.objects.get(to_user=request.POST.get('ed_follow').id)
+            friend_request.accept()
+            Follow.objects.add_follower(request.user, request.POST.get('ed_follow'))
+        if 'reject' in request.POST:
+            friend_request = FriendshipRequest.objects.get(to_user=request.POST.get('ed_follow'))
+            friend_request.reject()
+            Friend.objects.remove_friend(request.user, request.POST.get('ed_follow'))
+
     for requested_follow in requested_follows:
         ed_follow=requested_follow.from_user
         if Friend.objects.are_friends(ed_follow, other_user)==True:
@@ -67,29 +75,11 @@ def profile(request, user_id):
         if Friend.objects.are_friends(ing_follow, other_user) == True:
             requesting_follows.remove(requesting_follow)
 
-    if request.method == 'POST':
-        if 'accept' in request.POST:
-            friend_request = FriendshipRequest.objects.get(to_user=request.POST.get('ed_follow').id)
-            friend_request.accept()
-            Follow.objects.add_follower(request.user, request.POST.get('ed_follow'))
-
-    if request.method == 'POST':
-        if 'reject' in request.POST:
-            friend_request = FriendshipRequest.objects.get(to_user=request.POST.get('ed_follow'))
-            friend_request.reject()
-
-    return render(request, 'accounts/profile.html',
-                 {'user': user,
-                  'posts': posts,
-                  'followings': followings,
-                  'followers': followers,
-                  'blocking_user': blocking_user,
-                  'friends': friends,
-                  'requesting_follows': requesting_follows,
-                  'requested_follows': requested_follows,
-                  'like_posts': like_posts,
-                  }
-                 )
+    return render(request, 'accounts/info.html',
+                  {'user': user,
+                   'following': following,
+                   'followers': followers,
+                   'blocking_user': blocking_user})
 
 class IndexView(ListView):
     model = User
