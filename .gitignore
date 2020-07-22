@@ -2,4 +2,3 @@ local_settings.py
 project/wsgi.py
 project/asgi.py
 .idea
-__pyache__
