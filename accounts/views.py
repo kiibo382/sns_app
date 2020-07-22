@@ -68,12 +68,12 @@ def profile(request, user_id):
 
     if request.method == 'POST':
         if 'accept' in request.POST:
-            friend_request = FriendshipRequest.objects.get(to_user=requested_follow)
+            friend_request = FriendshipRequest.objects.get(to_user=ed_follow.from_user.id)
             friend_request.accept()
 
     if request.method == 'POST':
         if 'reject' in request.POST:
-            friend_request = FriendshipRequest.objects.get(to_user=requested_follow)
+            friend_request = FriendshipRequest.objects.get(to_user=ed_follow.from_user.id)
             friend_request.reject()
 
     return render(request, 'accounts/profile.html',

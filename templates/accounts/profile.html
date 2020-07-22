@@ -18,6 +18,7 @@
         <input type="submit" name="remove_block" value="ブロック解除">
       {% endif %}
   {% endif %}
+  </form>
     <p>{% load friendshiptags %}</p>
     <p>フォロー</p>
     <ul>
@@ -43,16 +44,16 @@
         <ul>
             {% for requested_follow in requested_follows %}
                 <li>{{requested_follow.from_user}}</li>
-                <input type="hidden" name=requested_follow>
-                <input type="submit" name="accept" value="accept">
-                <input type="submit" name="reject" value="reject">
+                <form action="{% url 'accounts:profile' user_id=user.id ed_follow=requested_follow %}">
+                    <input type="submit" name="accept" value="accept">
+                    <input type="submit" name="reject" value="reject">
+                </form>
             {% endfor %}
         </ul>
         <br>
         <p>ブロック中</p>
         {% blocking user %}
     {% endif %}
-     </form>
 
     <p>お気に入りツイート</p>
     <ul>
