@@ -11,8 +11,10 @@
     <a href="{% url 'twitterclone:detail' post.pk %}">
        <p>{{post.text}}</p>
        <p>#{{post.tag}}</p>
-       <p>{{post.published_at}}</p>
-       <hr>
+       <p>{{post.published_date}}</p>
     </a>
+<p>by <a href="{% url 'accounts:profile' user_id=post.author.id %}">{{post.author}}</a></p>
+       <hr>
+
     {% endfor %}
 {% endblock %}

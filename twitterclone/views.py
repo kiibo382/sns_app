@@ -63,7 +63,7 @@ def like(request, *args, **kwargs):
     is_like = Like.objects.filter(user=request.user).filter(post=post).count()
     # unlike
     if is_like > 0:
-        liking = Like.objects.get(pk=kwargs['pk'], user=request.user)
+        liking = Like.objects.get(post_id=kwargs['pk'], user=request.user)
         liking.delete()
         post.like_num -= 1
         post.save()

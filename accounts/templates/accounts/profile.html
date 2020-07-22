@@ -7,9 +7,9 @@
   {% csrf_token %}
   {% if not user == request.user %}
       {% if not friends == True %}
-        <input type="submit" name="request-follow" value="フォロー申請" onclick="disabled = true;">
+        <input type="submit" name="request_follow" value="request_follow">
       {% else %}
-         <input type="submit" name="remove-follow" value="フォロー解除" onclick="disabled = true;">
+         <input type="submit" name="remove_follow" value="remove_follow">
       {% endif %}
          <br>
       {% if not blocking_user == True %}
@@ -18,27 +18,41 @@
         <input type="submit" name="remove_block" value="ブロック解除">
       {% endif %}
   {% endif %}
-</form>
- <p>{% load friendshiptags %}</p>
+    <p>{% load friendshiptags %}</p>
     <p>フォロー</p>
-    {% following user %}
+    <ul>
+        {% for following in followings %}
+            <li>{{following}}</li>
+        {% endfor %}
+    </ul>
     <p>フォロワー</p>
-    {% followers user %}
-    <p>フォロー申請中</p>
-    {% for request_follow in request_follows %}
-        {{request_follow}}
-    {% endfor %}
-    <br>
-    <p>フォローリクエスト</p>
-    {% for requested_follow in request_follows %}
-        {{requested_follow}}
-    {% endfor %}
+    <ul>
+        {% for follower in followers %}
+            <li>{{follower}}</li>
+        {% endfor %}
+    </ul>
     {% if user == request.user %}
-        <input type="submit" name="accept" value="accept">
+        <p>フォロー申請中</p>
+        <ul>
+            {% for requesting_follow in requesting_follows %}
+                <li>{{requesting_follow.to_user}}</li>
+            {% endfor %}
+        </ul>
+        <br>
+        <p>フォローリクエスト</p>
+        <ul>
+            {% for requested_follow in requested_follows %}
+                <li>{{requested_follow.from_user}}</li>
+                <input type="hidden" name=requested_follow>
+                <input type="submit" name="accept" value="accept">
+                <input type="submit" name="reject" value="reject">
+            {% endfor %}
+        </ul>
+        <br>
+        <p>ブロック中</p>
+        {% blocking user %}
     {% endif %}
-    <br>
-    <p>ブロック中</p>
-    {% blocking user %}
+     </form>
 
     <p>お気に入りツイート</p>
     <ul>

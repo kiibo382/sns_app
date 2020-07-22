@@ -1,11 +1,5 @@
-local_settings.py 
-db.sqlite3
-manage.py
-project
-__init__.py
-apps.py
-tests.py
-db.sqlite3
-manage.py
+local_settings.py
+project/wsgi.py
+project/asgi.py
 .idea
 __pyache__

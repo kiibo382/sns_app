@@ -9,9 +9,6 @@
 <button><a href="{% url 'twitterclone:delete' post.pk %}">削除</a></button>
 <a href="{% url 'twitterclone:like' post.id %}">
     <p>お気に入り登録</p>
-    {% for message in messages %}
-        <p> {{ message }}</p>
-    {% endfor %}
 </a>{{ post.like_num }}
 
 {% endblock %}
