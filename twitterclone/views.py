@@ -1,8 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView, DetailView
-
 from .forms import PostAddForm
 from .models import Post, Tag, Like
 from django.utils import timezone
@@ -14,15 +14,12 @@ class IndexView(ListView):
     template_name = "twitterclone/index.html"
     paginate_by = 20
 
-index = IndexView.as_view()
-
 
 class DetailView(DetailView):
     model = Post
     template_name = 'twitterclone/detail.html'
 
-detail = DetailView.as_view()
-
+@login_required
 def post_new(request):
    if request.method == "POST":
       form = PostAddForm(request.POST)
@@ -36,7 +33,7 @@ def post_new(request):
         form = PostAddForm()
    return render(request, 'twitterclone/post_new.html', {'form': form})
 
-class EditView(UpdateView):
+class EditView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'twitterclone/edit.html'
     form_class = PostAddForm
@@ -50,8 +47,7 @@ class EditView(UpdateView):
         messages.warning(self.request, "保存できませんでした")
         return super().form_invalid(form)
 
-edit = EditView.as_view()
-
+@login_required
 def delete(request, post_id):
    post = get_object_or_404(Post, id=post_id)
    post.delete()

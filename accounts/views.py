@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from . import forms
 from django.shortcuts import render,  get_object_or_404
@@ -11,7 +12,6 @@ from friendship.models import Friend, Follow, Block, FriendshipRequest
 class Login(LoginView):
     form_class = forms.LoginForm
     template_name = "accounts/login.html"
-login = Login.as_view()
 
 class Logout(LoginRequiredMixin, LogoutView):
     template_name = "accounts/logout.html"
