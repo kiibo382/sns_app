@@ -4,7 +4,7 @@
     <h1>Users</h1>
 
     {% for user in user_list %}
-    <a href="{% url 'accounts:profile' user_id=user.id %}">
+    <a href="{% url 'accounts:profile' pk=user.id %}">
        <p>{{user.username}}</p>
         <p>{{followings_count}}</p>
         <p>{{followers_count}}</p>

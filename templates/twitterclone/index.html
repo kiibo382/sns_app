@@ -13,7 +13,7 @@
        <p>#{{post.tag}}</p>
        <p>{{post.published_date}}</p>
     </a>
-<p>by <a href="{% url 'accounts:profile' user_id=post.author.id %}">{{post.author}}</a></p>
+<p>by <a href="{% url 'accounts:profile' pk=post.author.id %}">{{post.author}}</a></p>
        <hr>
 
     {% endfor %}

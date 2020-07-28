@@ -3,7 +3,7 @@
 
 <h1 class="text-center my-5">{{ user.username }}のページ</h1>
 
- <form action="{% url 'accounts:profile' user_id=user.id %}" method="post">
+ <form action="{% url 'accounts:profile' pk=user.id %}" method="post">
   {% csrf_token %}
   {% if not user == request.user %}
       {% if not friends == True %}
