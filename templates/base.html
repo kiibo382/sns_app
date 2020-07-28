@@ -16,12 +16,12 @@
         <nav>
             <ul>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'accounts:logout' %}" class="logout">Logout</a></li>
-                <li><a href="{% url 'accounts:profile' pk=user.id %}" class="profile">Profile</a></li>
-                <li><a href="{% url 'accounts:index' %}" class="index">Users</a></li>
+                    <li><a href="{% url 'accounts:logout' %}" class="logout">Logout</a></li>
+                    <li><a href="{% url 'accounts:profile' pk=user.id %}" class="profile">Profile</a></li>
+                    <li><a href="{% url 'accounts:index' %}" class="index">Users</a></li>
                 {% else %}
-                <li><a href="{% url 'accounts:create' %}" class="signup">Sign up</a></li>
-                <li><a href="{% url 'accounts:login' %}" class="login">Login</a></li>
+                    <li><a href="{% url 'accounts:create' %}" class="signup">Sign up</a></li>
+                    <li><a href="{% url 'accounts:login' %}" class="login">Login</a></li>
                 {% endif %}
             </ul>
         </nav>

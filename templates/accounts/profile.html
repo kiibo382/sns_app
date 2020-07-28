@@ -22,7 +22,7 @@
   {% endif %}
   <br>
   <br>
-  <a href="{% url 'accounts:info' user_id=user.id %}"><p>ユーザー詳細情報</p></a>
+  <a href="{% url 'accounts:info' pk=user.id %}"><p>ユーザー詳細情報</p></a>
   </form>
 
     <p>お気に入りツイート</p>
@@ -35,7 +35,7 @@
     </ul>
 
     <p>自分のツイート</p>
-     {% for post in user %}
+     {% for post in posts %}
      <a href="{% url 'twitterclone:detail' pk=post.id %}">
        <div class="card m-4" style="min-width: 300px; max-height: 490px;">
          <div class="card-body">

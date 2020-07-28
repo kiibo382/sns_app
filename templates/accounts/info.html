@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <a href="{% url 'accounts:profile' user_id=user.id %}"><p>ユーザーページへ戻る</p></a>
+    <h2>{{user.username}}</h2>
+    <a href="{% url 'accounts:profile' pk=user.id %}"><p>ユーザーページへ戻る</p></a>
     <p>{% load friendshiptags %}</p>
     <p>フォロー</p>
     <ul>
@@ -28,11 +29,11 @@
                 <li>{{requested_follow.from_user}}</li>
                 {% if requested_follow.from_user in followers == False %}
                     {% if requested_follow.from_user in blocking_user == False %}
-                        <form action="{% url 'accounts:profile' user_id=user.id %}">
+                        <form action="{% url 'accounts:profile' pk=user.id %}">
                             <input type="hidden" name="ed_follow" value="requested_follow.from_user">
                             <input type="submit" name="accept" value="accept">
                         </form>
-                        <form action="{% url 'accounts:profile' user_id=user.id %}">
+                        <form action="{% url 'accounts:profile' pk=user.id %}">
                             <input type="hidden" name="ed_follow" value="requested_follow.from_user">
                             <input type="submit" name="reject" value="reject">
                         </form>
