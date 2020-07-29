@@ -54,6 +54,10 @@ class Profile(TemplateView):
                Block.objects.add_block(user, self.request.user)
             if 'remove_block' in request.POST:
                Block.objects.remove_block(user, self.request.user)
+        context = {
+            'user': user,
+        }
+        return self.render_to_response(context)
 
 class Info(TemplateView):
     template_name = "accounts/info.html"
@@ -100,6 +104,12 @@ class Info(TemplateView):
             if Friend.objects.are_friends(ing_follow, request.user) == True:
                 requesting_follows.remove(requesting_follow)
 
+        context = {
+            'user': user,
+            'requseting_follows': requesting_follows,
+            'requested_follows': requested_follows
+        }
+        return self.render_to_response(context)
 
 
 class IndexView(ListView):
