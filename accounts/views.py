@@ -23,18 +23,19 @@ class UserCreateView(CreateView):
     template_name = "accounts/create.html"
     success_url = reverse_lazy('accounts:login')
 
-class Profile(DetailView):
+class Profile(TemplateView):
     template_name = "accounts/profile.html"
-    model = User
 
     def get(self, request, *args, **kwargs):
+        user = get_object_or_404(User, id=self.kwargs['pk'])
         login_user = self.request.user
-        posts= login_user.post_set.all().order_by('-published_date')
-        friends = Friend.objects.are_friends(self.request.user, request.user)
-        blocking_user = Block.objects.is_blocked(self.request.user, request.user)
-        like_posts = login_user.like_user.all()
-        requesting_follows = Friend.objects.sent_requests(user=self.request.user)
-        context = {'login_user': login_user,
+        posts= user.post_set.all().order_by('-published_date')
+        friends = Friend.objects.are_friends(user, login_user)
+        blocking_user = Block.objects.is_blocked(user, login_user)
+        like_posts = user.like_user.all()
+        requesting_follows = Friend.objects.sent_requests(user=user)
+        context = {'user': user,
+                   'login_user': login_user,
                    'posts': posts,
                    'friends': friends,
                    'blocking_user': blocking_user,
@@ -42,27 +43,27 @@ class Profile(DetailView):
                    'requesting_follows': requesting_follows}
         return self.render_to_response(context)
 
-    def post(self, request):
-        if 'request_follow' in request.POST:
-           Friend.objects.add_friend(request.user, self.request.user)
-        if 'remove_follow' in request.POST:
-            Friend.objects.remove_friend(request.user, self.request.user)
-        if 'block' in request.POST:
-           Block.objects.add_block(request.user, self.request.user)
-        if 'remove_block' in request.POST:
-           Block.objects.remove_block(request.user, self.request.user)
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(User, id=self.kwargs['pk'])
+        if request.method == 'POST':
+            if 'request_follow' in request.POST:
+               Friend.objects.add_friend(user, self.request.user)
+            if 'remove_follow' in request.POST:
+                Friend.objects.remove_friend(user, self.request.user)
+            if 'block' in request.POST:
+               Block.objects.add_block(user, self.request.user)
+            if 'remove_block' in request.POST:
+               Block.objects.remove_block(user, self.request.user)
 
-class Info(DetailView):
+class Info(TemplateView):
     template_name = "accounts/info.html"
-    model = User
 
     def get(self, request, *args, **kwargs):
-        user=self.request.user
-
+        user = get_object_or_404(User, id=self.kwargs['pk'])
         following = Follow.objects.following(user)
         followers = Follow.objects.followers(user)
-        friends = Friend.objects.are_friends(self.request.user, request.user)
-        blocking_user = Block.objects.is_blocked(self.request.user, request.user)
+        friends = Friend.objects.are_friends(user, self.request.user)
+        blocking_user = Block.objects.is_blocked(user, self.request.user)
         requesting_follows = Friend.objects.sent_requests(user=user)
         requested_follows = Friend.objects.unread_requests(user=user)
         context={
@@ -75,8 +76,8 @@ class Info(DetailView):
         }
         return self.render_to_response(context)
 
-    def post(self, request):
-        user = self.request.user
+    def post(self, request, *args, **kwargs):
+        user = get_object_or_404(User, id=self.kwargs['pk'])
         requesting_follows = Friend.objects.sent_requests(user=user)
         requested_follows = Friend.objects.unread_requests(user=user)
 
