@@ -45,15 +45,15 @@ class Profile(TemplateView):
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, id=self.kwargs['pk'])
-        if request.method == 'POST':
-            if 'request_follow' in request.POST:
-               Friend.objects.add_friend(user, self.request.user)
-            if 'remove_follow' in request.POST:
-                Friend.objects.remove_friend(user, self.request.user)
-            if 'block' in request.POST:
-               Block.objects.add_block(user, self.request.user)
-            if 'remove_block' in request.POST:
-               Block.objects.remove_block(user, self.request.user)
+        if 'request_follow' in request.POST:
+           Friend.objects.add_friend(user, self.request.user)
+        if 'remove_follow' in request.POST:
+            Friend.objects.remove_friend(user, self.request.user)
+        if 'block' in request.POST:
+           Block.objects.add_block(user, self.request.user)
+        if 'remove_block' in request.POST:
+           Block.objects.remove_block(user, self.request.user)
+
         context = {
             'user': user,
         }
