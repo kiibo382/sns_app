@@ -26,10 +26,10 @@ class UserCreateView(CreateView):
 class Profile(TemplateView):
     template_name = "accounts/profile.html"
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         user = get_object_or_404(User, id=self.kwargs['pk'])
         login_user = self.request.user
-        posts= user.post_set.all().order_by('-published_date')
+        posts = user.post_set.all().order_by('-published_date')
         friends = Friend.objects.are_friends(user, login_user)
         blocking_user = Block.objects.is_blocked(user, login_user)
         like_posts = user.like_user.all()
@@ -41,7 +41,7 @@ class Profile(TemplateView):
                    'blocking_user': blocking_user,
                    'like_posts': like_posts,
                    'requesting_follows': requesting_follows}
-        return self.render_to_response(context)
+        return context
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, id=self.kwargs['pk'])
@@ -62,7 +62,7 @@ class Profile(TemplateView):
 class Info(TemplateView):
     template_name = "accounts/info.html"
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         user = get_object_or_404(User, id=self.kwargs['pk'])
         following = Follow.objects.following(user)
         followers = Follow.objects.followers(user)
@@ -74,11 +74,12 @@ class Info(TemplateView):
             'user': user,
             'following': following,
             'followers': followers,
+            'friends': friends,
             'blocking_user': blocking_user,
             'requesting_follows': requesting_follows,
             'requested_follows': requested_follows
         }
-        return self.render_to_response(context)
+        return context
 
     def post(self, request, *args, **kwargs):
         user = get_object_or_404(User, id=self.kwargs['pk'])
