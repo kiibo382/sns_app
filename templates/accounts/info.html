@@ -29,12 +29,10 @@
                 <li>{{requested_follow.from_user}}</li>
                     <form action="{% url 'accounts:accept' pk=requested_follow.from_user.id %}" method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="ed_follow" value=requested_follow.from_user>
                         <input type="submit" name="accept" value="accept">
                     </form>
                     <form action="{% url 'accounts:reject' pk=requested_follow.from_user.id %}" method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="ed_follow" value=requested_follow.from_user>
                         <input type="submit" name="reject" value="reject">
                     </form>
             {% endfor %}

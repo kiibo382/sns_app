@@ -85,10 +85,6 @@ class Info(TemplateView):
         blocking_user = Block.objects.is_blocked(login_user, user)
         requesting_follows = Friend.objects.sent_requests(user=user)
         requested_follows = Friend.objects.unread_requests(user=user)
-        try:
-            requesting_follows = FriendshipRequest.objects.get(to_user=user.id, from_user=login_user.id)
-        except:
-            pass
         context={
             'user': user,
             'login_user': login_user,
