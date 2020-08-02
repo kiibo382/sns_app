@@ -10,5 +10,8 @@
 <a href="{% url 'twitterclone:like' post.id %}">
     <p>お気に入り登録</p>
 </a>{{ post.like_num }}
+{% for message in messages %}
+    <p>{{message}}</p>
+{% endfor %}
 
 {% endblock %}

@@ -8,19 +8,28 @@ from .models import Post, Tag, Like
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 class IndexView(ListView):
     model = Post
     template_name = "twitterclone/index.html"
     paginate_by = 20
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["login_user"] = self.request.user
+        return context
 
 class DetailView(DetailView):
     model = Post
     template_name = 'twitterclone/detail.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["login_user"] = self.request.user
+        return context
 
 @login_required
 def post_new(request):
+   login_user = request.user
    if request.method == "POST":
       form = PostAddForm(request.POST)
       if form.is_valid():
@@ -31,7 +40,8 @@ def post_new(request):
          return redirect('twitterclone:index')
    else:
         form = PostAddForm()
-   return render(request, 'twitterclone/post_new.html', {'form': form})
+
+   return render(request, 'twitterclone/post_new.html', {'form': form, "login_user": login_user})
 
 class EditView(LoginRequiredMixin, UpdateView):
     model = Post

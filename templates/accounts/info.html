@@ -27,18 +27,16 @@
         <ul>
             {% for requested_follow in requested_follows %}
                 <li>{{requested_follow.from_user}}</li>
-                {% if requested_follow.from_user in followers == False %}
-                    {% if requested_follow.from_user in blocking_user == False %}
-                        <form action="{% url 'accounts:profile' pk=user.id %}">
-                            <input type="hidden" name="ed_follow" value="requested_follow.from_user">
-                            <input type="submit" name="accept" value="accept">
-                        </form>
-                        <form action="{% url 'accounts:profile' pk=user.id %}">
-                            <input type="hidden" name="ed_follow" value="requested_follow.from_user">
-                            <input type="submit" name="reject" value="reject">
-                        </form>
-                    {% endif %}
-                {% endif %}
+                    <form action="{% url 'accounts:accept' pk=requested_follow.from_user.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="ed_follow" value=requested_follow.from_user>
+                        <input type="submit" name="accept" value="accept">
+                    </form>
+                    <form action="{% url 'accounts:reject' pk=requested_follow.from_user.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="ed_follow" value=requested_follow.from_user>
+                        <input type="submit" name="reject" value="reject">
+                    </form>
             {% endfor %}
         </ul>
         <br>
