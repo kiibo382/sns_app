@@ -49,6 +49,11 @@ class EditView(LoginRequiredMixin, UpdateView):
     form_class = PostAddForm
     success_url = "/"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["login_user"] = self.request.user
+        return context
+
     def form_valid(self, form):
         messages.success(self.request, "保存しました")
         return super().form_valid(form)
