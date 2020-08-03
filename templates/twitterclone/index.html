@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>トップ画面</h1>
-    {% if messages %}
-        {% for message in messages %}
-            <h3> {{ message }}</h3>
-        {% endfor %}
-    {% endif %}
-    {% if user.is_authenticated %}
-        <li><a href="{% url 'twitterclone:post_new' %}" class="act">Add Post</a></li>
-    {% endif %}
+<h1>トップ画面</h1>
+{% if messages %}
+{% for message in messages %}
+<h3> {{ message }}</h3>
+{% endfor %}
+{% endif %}
+{% if user.is_authenticated %}
+<li><a href="{% url 'twitterclone:post_new' %}" class="act">Add Post</a></li>
+{% endif %}
 
-    {% for post in post_list %}
-    <a href="{% url 'twitterclone:detail' post.pk %}">
-       <p>{{post.text}}</p>
-       <p>#{{post.tag}}</p>
-       <p>{{post.published_date}}</p>
-    </a>
-    <p>by <a href="{% url 'accounts:profile' pk=post.author.id %}">{{post.author}}</a></p>
-       <hr>
+{% for post in post_list %}
+<a href="{% url 'twitterclone:detail' post.pk %}">
+    <p>{{post.text}}</p>
+    <p>#{{post.tag}}</p>
+    <p>{{post.published_date}}</p>
+</a>
+<p>by <a href="{% url 'accounts:profile' pk=post.author.id %}">{{post.author}}</a></p>
+<hr>
 
-    {% endfor %}
+{% endfor %}
 {% endblock %}

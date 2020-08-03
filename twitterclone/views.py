@@ -10,38 +10,44 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+
 class IndexView(ListView):
     model = Post
     template_name = "twitterclone/index.html"
     paginate_by = 20
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["login_user"] = self.request.user
         return context
+
 
 class DetailView(DetailView):
     model = Post
     template_name = 'twitterclone/detail.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["login_user"] = self.request.user
         return context
 
+
 @login_required
 def post_new(request):
-   login_user = request.user
-   if request.method == "POST":
-      form = PostAddForm(request.POST)
-      if form.is_valid():
-         post = form.save(commit=False)
-         post.author = request.user
-         post.published_date = timezone.now()
-         post.save()
-         return redirect('twitterclone:index')
-   else:
+    login_user = request.user
+    if request.method == "POST":
+        form = PostAddForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('twitterclone:index')
+    else:
         form = PostAddForm()
 
-   return render(request, 'twitterclone/post_new.html', {'form': form, "login_user": login_user})
+    return render(request, 'twitterclone/post_new.html', {'form': form, "login_user": login_user})
+
 
 class EditView(LoginRequiredMixin, UpdateView):
     model = Post
@@ -62,11 +68,13 @@ class EditView(LoginRequiredMixin, UpdateView):
         messages.warning(self.request, "保存できませんでした")
         return super().form_invalid(form)
 
+
 @login_required
 def delete(request, post_id):
-   post = get_object_or_404(Post, id=post_id)
-   post.delete()
-   return redirect('twitterclone:index')
+    post = get_object_or_404(Post, id=post_id)
+    post.delete()
+    return redirect('twitterclone:index')
+
 
 @login_required
 def like(request, *args, **kwargs):
