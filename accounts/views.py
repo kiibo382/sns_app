@@ -74,7 +74,7 @@ def block(request, pk):
     return render(request, 'accounts/block.html',{'login_user': request.user})
 
 
-class Info(TemplateView):
+class Info(LoginRequiredMixin, TemplateView):
     template_name = "accounts/info.html"
 
     def get_context_data(self, **kwargs):
