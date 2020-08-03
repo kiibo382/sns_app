@@ -1,37 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="text-center my-5">{{ user.username }}のページ</h1>
+<h1 class="text-center my-5">{{ display_user.username }}のページ</h1>
 
-{% if not user == login_user %}
-  <form action="{% url 'accounts:follow' pk=user.id %}" method="post">
-  {% csrf_token %}
-  {% if friends == False %}
-    {% if not user == requesting_follows.to_user  %}
-        <input type="submit" name="request_follow" value="フォローリクエスト">
-    {% endif %}
-  {% endif %}
+{% if user.is_authenticated %}
 
-  {% if user == requesting_follows.to_user  %}
-      <input type="submit" name="remove_follow" value="フォローリクエスト取り消し">
-  {% endif %}
-  {% if friends == True or user in following == True %}
-      <input type="submit" name="not_follow" value="フォロー解除">
-  {% endif %}
-  </form>
-
-  <form action="{% url 'accounts:block' pk=user.id %}" method="post">
+    {% if not display_user == login_user %}
+      <form action="{% url 'accounts:follow' pk=display_user.id %}" method="post">
       {% csrf_token %}
-      {% if not blocking_user == True %}
-        <input type="submit" name="block" value="ブロック">
-      {% else %}
-        <input type="submit" name="remove_block" value="ブロック解除">
+      {% if friends == False %}
+        {% if not display_user == requesting_follows.to_user  %}
+            <input type="submit" name="request_follow" value="フォローリクエスト">
+        {% endif %}
       {% endif %}
-  </form>
+
+      {% if display_user == requesting_follows.to_user  %}
+          <input type="submit" name="remove_follow" value="フォローリクエスト取り消し">
+      {% endif %}
+      {% if friends == True or display_user in following == True %}
+          <input type="submit" name="not_follow" value="フォロー解除">
+      {% endif %}
+      </form>
+
+      <form action="{% url 'accounts:block' pk=display_user.id %}" method="post">
+          {% csrf_token %}
+          {% if not blocking_user == True %}
+            <input type="submit" name="block" value="ブロック">
+          {% else %}
+            <input type="submit" name="remove_block" value="ブロック解除">
+          {% endif %}
+      </form>
+    {% endif %}
+  <br>
+  <br>
+  <a href="{% url 'accounts:info' pk=display_user.id %}"><p>ユーザー詳細情報</p></a>
+
 {% endif %}
-  <br>
-  <br>
-  <a href="{% url 'accounts:info' pk=user.id %}"><p>ユーザー詳細情報</p></a>
 
 
     <p>お気に入りツイート</p>
