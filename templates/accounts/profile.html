@@ -15,14 +15,14 @@
     {% if display_user == requesting_follows.to_user %}
     <input type="submit" name="remove_follow" value="フォローリクエスト取り消し">
     {% endif %}
-    {% if display_user in following == True %}
+    {% if display_user in following %}
     <input type="submit" name="not_follow" value="フォロー解除">
     {% endif %}
 </form>
 
 <form action="{% url 'accounts:block' pk=display_user.id %}" method="post">
     {% csrf_token %}
-    {% if not blocking_user == True %}
+    {% if not blocking_user %}
     <input type="submit" name="block" value="ブロック">
     {% else %}
     <input type="submit" name="remove_block" value="ブロック解除">
