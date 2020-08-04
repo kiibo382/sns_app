@@ -8,16 +8,14 @@
 {% if not display_user == login_user %}
 <form action="{% url 'accounts:follow' pk=display_user.id %}" method="post">
     {% csrf_token %}
-    {% if friends == False %}
     {% if not display_user == requesting_follows.to_user %}
     <input type="submit" name="request_follow" value="フォローリクエスト">
-    {% endif %}
     {% endif %}
 
     {% if display_user == requesting_follows.to_user %}
     <input type="submit" name="remove_follow" value="フォローリクエスト取り消し">
     {% endif %}
-    {% if friends == True or display_user in following == True %}
+    {% if display_user in following == True %}
     <input type="submit" name="not_follow" value="フォロー解除">
     {% endif %}
 </form>
