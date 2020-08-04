@@ -34,26 +34,29 @@ class Profile(TemplateView):
         display_user = get_object_or_404(django.contrib.auth.models.User, id=self.kwargs['pk'])
         posts = display_user.post_set.all().order_by('-published_date')
         like_posts = display_user.like_user.all()
-        try:
+        if self.request.user.is_authenticated:
             login_user = self.request.user
-            requesting_follows = FriendshipRequest.objects.get(to_user=display_user.id, from_user=login_user.id)
             friends = Friend.objects.are_friends(login_user, display_user)
             following = Follow.objects.following(login_user)
             blocking_user = Block.objects.is_blocked(login_user, display_user)
-        except:
-            pass
+            try:
+                requesting_follows = FriendshipRequest.objects.get(to_user=display_user.id, from_user=login_user.id)
+            except:
+                pass
 
+        # pdb.set_trace()
         context['display_user'] = display_user
         context['posts'] = posts
         context['like_posts'] = like_posts
-        try:
-            context['requesting_follows'] = requesting_follows
+        if self.request.user.is_authenticated:
             context['login_user'] = login_user
             context['friends'] = friends
             context['following'] = following
             context['blocking_user'] = blocking_user
-        except:
-            pass
+            try:
+                context['requesting_follows'] = requesting_follows
+            except:
+                pass
         # pdb.set_trace()
         return context
 
