@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
 from . import views
+from django.contrib.auth.decorators import login_required
 
 app_name = 'twitterclone'
 urlpatterns = [
@@ -9,5 +10,5 @@ urlpatterns = [
     path('post_new/', views.post_new, name='post_new'),
     path('edit/<int:pk>/', views.EditView.as_view(), name='edit'),
     path('delete/<int:post_id>/', views.delete, name='delete'),
-    url(r'^(?P<pk>[0-9]+)/like/$', views.like, name='like'),
+    path('<postId>/like/', login_required(views.Likes.as_view()),name='like'),
 ]

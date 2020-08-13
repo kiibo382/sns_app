@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>トップ画面</h1>
 {% if messages %}
 {% for message in messages %}
 <h3> {{ message }}</h3>
@@ -16,6 +15,7 @@
     <p>{{post.text}}</p>
     <p>#{{post.tag}}</p>
     <p>{{post.published_date}}</p>
+    <p>{{ post.like_num }}　いいね</p>
 </a>
 <p>by <a href="{% url 'accounts:profile' pk=post.author.id %}">{{post.author}}</a></p>
 <hr>

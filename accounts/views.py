@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, ListView, DetailView, TemplateView
 from django.urls import reverse_lazy
 from . import forms
+from twitterclone.models import Like, Post
 from django.shortcuts import render, get_object_or_404
 from friendship.models import Friend, Follow, Block, FriendshipRequest
 import pdb
