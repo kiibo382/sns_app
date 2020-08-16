@@ -1,11 +1,10 @@
 # import unittest
 #
-# from accounts.tests import test_form, test_urls
+# from twitterclone.tests import test_model
 #
 #
 # def suite():
 #     tests_loader = unittest.TestLoader().loadTestsFromModule
 #     test_suites = []
-#     test_suites.append(tests_loader(test_form))
-#     test_suites.append(tests_loader(test_urls))
+#     test_suites.append(tests_loader(test_model))
 #     return unittest.TestSuite(test_suites)

@@ -82,6 +82,7 @@ def delete(request, post_id):
     post.delete()
     return redirect('twitterclone:index')
 
+
 class Likes(View):
     model = Like
     slug_field = 'post'
@@ -108,7 +109,6 @@ class Likes(View):
             'like_posts': like_posts,
             'post': post
         })
-
 
 # @login_required
 # def like(request):
