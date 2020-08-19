@@ -4,12 +4,6 @@ from django.urls import resolve
 from twitterclone.views import post_new, DetailView, IndexView, EditView, delete, Likes
 
 class UrlResolveTests(TestCase):
-    # @classmethod
-    # def setUpClass(cls):
-    #
-    #
-    # def setUp(self):
-
     def test_url_resolves_to_index_view(self):
         found = resolve('/')
         self.assertEqual(found.func.view_class, IndexView)

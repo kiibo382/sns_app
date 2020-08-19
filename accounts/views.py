@@ -45,7 +45,6 @@ class Profile(TemplateView):
             except:
                 pass
 
-        # pdb.set_trace()
         context['display_user'] = display_user
         context['posts'] = posts
         context['like_posts'] = like_posts
@@ -58,18 +57,18 @@ class Profile(TemplateView):
                 context['requesting_follows'] = requesting_follows
             except:
                 pass
-        # pdb.set_trace()
         return context
 
 
 @require_POST
 def follow(request, pk):
     user = django.contrib.auth.models.User.objects.get(id=pk)
-    if 'request_follow' in request.POST:
+    if 'follow_req' in request.POST:
         Friend.objects.add_friend(request.user, user)
-    if 'remove_follow' in request.POST:
-        Friend.objects.remove_friend(request.user, user)
-    if 'not_follow' in request.POST:
+    if 'cancel_follow_req' in request.POST:
+        friend_request = FriendshipRequest.objects.get(to_user=user.id)
+        friend_request.cancel()
+    if 'cancel_follow' in request.POST:
         Friend.objects.remove_friend(request.user, user)
     return render(request, 'accounts/follow.html', {'login_user': request.user})
 
@@ -112,8 +111,6 @@ class Info(LoginRequiredMixin, TemplateView):
 @require_POST
 def accept(request, pk):
     user = django.contrib.auth.models.User.objects.get(id=pk)
-    # if 'accept' in request.POST:
-    # pdb.set_trace()
     friend_request = FriendshipRequest.objects.get(from_user=pk, to_user=request.user.id)
     friend_request.accept()
     Follow.objects.add_follower(request.user, user)

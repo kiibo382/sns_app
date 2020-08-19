@@ -36,3 +36,13 @@ class UrlResolveTests(TestCase):
         c = Client()
         response = c.get('/accounts/index/')
         self.assertEqual(response.status_code, 200)
+
+    def test_url_resolves_to_user_profile_view(self):
+        c = Client()
+        response = c.get('/accounts/profile/1/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_resolves_to_user_info_view(self):
+        c = Client()
+        response = c.get('/accounts/profile/1/info/')
+        self.assertEqual(response.status_code, 200)

@@ -29,3 +29,11 @@ class UrlResolveTests(TestCase):
     def test_url_resolves_to_user_index_view(self):
         found = resolve('/accounts/index/')
         self.assertEqual(found.func.view_class, IndexView)
+
+    def test_url_resolves_to_user_profile_view(self):
+        found = resolve('/accounts/profile/1/')
+        self.assertEqual(found.func.view_class, Profile)
+
+    def test_url_resolves_to_user_info_view(self):
+        found = resolve('/accounts/profile/1/info/')
+        self.assertEqual(found.func.view_class, Info)

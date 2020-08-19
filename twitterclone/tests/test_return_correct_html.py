@@ -34,6 +34,9 @@ class HtmlTests(TestCase):
         response=self.client.get('/post_new/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'twitterclone/post_new.html')
+        response = self.client.post('/post_new/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'twitterclone/post_new.html')
 
     def test_detail_page_returns_correct_html(self):
         self.client.login(username='test', password='test')
@@ -44,6 +47,9 @@ class HtmlTests(TestCase):
     def test_edit_page_returns_correct_html(self):
         self.client.login(username='test', password='test')
         response = self.client.get('/edit/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'twitterclone/edit.html')
+        response = self.client.post('/edit/1/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'twitterclone/edit.html')
 

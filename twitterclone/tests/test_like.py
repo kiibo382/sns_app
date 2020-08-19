@@ -1,5 +1,9 @@
+import pdb
+
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.db.models import QuerySet
+
 from twitterclone.models import Post, Tag, Like
 from django.test import TestCase, RequestFactory
 from twitterclone.views import Likes
@@ -29,4 +33,9 @@ class SaveLikeRequestTests(TestCase):
         request.user=user
         res=Likes.as_view()(request, post.id)
         self.assertEqual(res.status_code, 200)
-        # self.assertEqual(post.like_num, 1)
+        self.assertTrue(Like.objects.filter(user=request.user, post=post).exists())
+        rf.get("/1/like/")
+        request.user = user
+        res = Likes.as_view()(request, post.id)
+        self.assertEqual(res.status_code, 200)
+        self.assertFalse(Like.objects.filter(user=request.user, post=post).exists())
