@@ -41,10 +41,8 @@ class HtmlTests(TestCase):
         t=Tag()
         t.tag='t'
         t.save()
-        response=self.client.post(reverse('twitterclone:post_new'), data={'text': 'ttt','tag': 1})
+        self.client.post(reverse('twitterclone:post_new'), data={'text': 'ttt','tag': 1})
         self.assertTrue(Post.objects.get(text='ttt'))
-        # self.assertEqual(response.status_code, 200)
-        # self.assertTemplateUsed(response, 'twitterclone/index.html')
 
     def test_detail_page_returns_correct_html(self):
         self.client.login(username='test', password='test')
@@ -57,12 +55,12 @@ class HtmlTests(TestCase):
         response = self.client.get('/edit/1/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'twitterclone/edit.html')
-        response = self.client.post('/edit/1/', data={'text': 'ttttt', 'tag': 1})
+        self.client.post('/edit/1/', data={'text': 'ttttt', 'tag': 1})
         self.assertTrue(Post.objects.get(text='ttttt'))
 
     def test_delete_page_returns_correct_html(self):
         self.client.login(username='test', password='test')
-        response = self.client.get('/delete/1/')
+        self.client.get('/delete/1/')
         try:
             post = Post.objects.get(id=1)
         except:
