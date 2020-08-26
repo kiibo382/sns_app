@@ -7,18 +7,16 @@ class FollowSaveTests(TestCase):
     def test_block(self):
         user = User.objects.create_user(username='test', password='test')
         other_user = User.objects.create_user(username='other', password='other')
+
         rf = RequestFactory()
-        request = rf.post("/accounts/profile/2/block/", data={'pk': other_user.id})
+        request = rf.post("/accounts/profile/2/", data={'block': ''})
         request.user = user
         res=block(request, other_user.id)
         self.assertEqual(res.status_code, 200)
+        self.assertTrue(Block.objects.is_blocked(user, other_user))
 
-    def test_block_function(self):
-        user = User.objects.create_user(username='test', password='test')
-        other_user = User.objects.create_user(username='other', password='other')
-        rf = RequestFactory()
-        Friend.objects.add_friend(user, other_user)
-        Block.objects.add_block(other_user, user)
-        self.assertTrue(Block.objects.is_blocked(other_user, user))
-        Block.objects.remove_block(other_user, user)
-        self.assertFalse(Block.objects.is_blocked(other_user, user))
+        request = rf.post("/accounts/profile/2/", data={'remove_block': ''})
+        request.user = user
+        res = block(request, other_user.id)
+        self.assertEqual(res.status_code, 200)
+        self.assertFalse(Block.objects.is_blocked(user, other_user))

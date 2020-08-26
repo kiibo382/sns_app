@@ -10,14 +10,17 @@ class FollowSaveTests(TestCase):
         user = User.objects.create_user(username='test', password='test')
         other_user = User.objects.create_user(username='other', password='other')
         rf = RequestFactory()
-        request = rf.post("/accounts/profile/2/follow/", data={'pk': other_user.id})
+
+        request = rf.post("/accounts/profile/2/", data={'follow_req': ''})
         request.user = user
         res=follow(request, other_user.id)
         self.assertEqual(res.status_code, 200)
-        Friend.objects.add_friend(user, other_user)
         self.assertTrue(FriendshipRequest.objects.get(to_user=other_user.id))
-        friend_request = FriendshipRequest.objects.get(to_user=other_user.id)
-        friend_request.cancel()
+
+        request = rf.post("/accounts/profile/2/", data={'cancel_follow_req': ''})
+        request.user = user
+        res = follow(request, other_user.id)
+        self.assertEqual(res.status_code, 200)
         try:
             fri_req=FriendshipRequest.objects.get(to_user=other_user.id)
         except:
@@ -29,12 +32,15 @@ class FollowSaveTests(TestCase):
         other_user = User.objects.create_user(username='other', password='other')
         rf = RequestFactory()
         Friend.objects.add_friend(user, other_user)
-        request = rf.post("/accounts/profile/2/info/accept/", data={'pk': other_user.id})
+        request = rf.post("/accounts/profile/2/info/accept/")
         request.user = other_user
         res=accept(request, user.id)
         self.assertEqual(res.status_code, 200)
         self.assertTrue(Friend.objects.are_friends(user, other_user))
-        Friend.objects.remove_friend(user, other_user)
+        request = rf.post("accounts/profile/2/", data={'cancel_follow': ''})
+        request.user = user
+        res = follow(request, other_user.id)
+        self.assertEqual(res.status_code, 200)
         self.assertFalse(Friend.objects.are_friends(user, other_user))
 
 
