@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center my-5">{{ display_user.username }}のページ</h1>
+
+{% if user.is_authenticated %}
+
+{% if not display_user == login_user %}
+<form action="{% url 'accounts:follow' pk=display_user.id %}" method="post">
+    {% csrf_token %}
+    {% if not display_user == requesting_follows.to_user %}
+    <input type="submit" name="follow_req" value="フォローリクエスト">
+    {% endif %}
+
+    {% if display_user == requesting_follows.to_user %}
+    <input type="submit" name="cancel_follow_req" value="フォローリクエスト取り消し">
+    {% endif %}
+    {% if display_user in following %}
+    <input type="submit" name="cancel_follow" value="フォロー解除">
+    {% endif %}
+</form>
+
+<form action="{% url 'accounts:block' pk=display_user.id %}" method="post">
+    {% csrf_token %}
+    {% if not blocking_user %}
+    <input type="submit" name="block" value="ブロック">
+    {% else %}
+    <input type="submit" name="remove_block" value="ブロック解除">
+    {% endif %}
+</form>
+{% endif %}
+
+{% endif %}
+<br>
+<br>
+<a href="{% url 'accounts:info' pk=display_user.id %}"><p>ユーザー詳細情報</p></a>
+
+
+<p>お気に入りツイート</p>
+<ul>
+    {% for like_post in like_posts %}
+    <a href="{% url 'twitterclone:detail' pk=like_post.post.id %}">
+        <li>{{like_post.post}}</li>
+    </a>
+    {% endfor %}
+</ul>
+
+<p>自分のツイート</p>
+{% for post in posts %}
+<a href="{% url 'twitterclone:detail' pk=post.id %}">
+    <div class="card m-4" style="min-width: 300px; max-height: 490px;">
+        <div class="card-body">
+            <p class="card-text">
+                {{ post.text}}
+            </p>
+            <p>#{{post.tag}}</p>
+            <p>{{post.created_at}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</a>
+
+{% endblock %}

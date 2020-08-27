@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<h3> {{ message }}</h3>
+{% endfor %}
+{% endif %}
+{% if user.is_authenticated %}
+<li><a href="{% url 'twitterclone:post_new' %}" class="act">Add Post</a></li>
+{% endif %}
+
+{% for post in post_list %}
+<a href="{% url 'twitterclone:detail' post.pk %}">
+    <p>{{post.text}}</p>
+    <p>#{{post.tag}}</p>
+    <p>{{post.published_date}}</p>
+    <p>{{ post.like_num }}　いいね</p>
+</a>
+<p>by <a href="{% url 'accounts:profile' pk=post.author.id %}">{{post.author}}</a></p>
+<hr>
+
+{% endfor %}
+{% endblock %}

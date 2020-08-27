@@ -1,0 +1,14 @@
+
+{#    <form action="{% url 'twitterclone:like' %}" method="POST">#}
+{#        {% csrf_token %}#}
+{#        {% if liked %}#}
+{#        <button type="submit" id="like" name="post_id" value="{{post.id}}" class="btn"><i class="fas fa-lg fa-heart like-red"></i></button>#}
+{#        {% else %}#}
+{#        <button type="submit" id="like" name="post_id" value="{{post.id}}" class="btn"><i class="far fa-lg fa-heart"></i></button>#}
+{#        {% endif %}#}
+{#        <button type="submit" id="like" name="post_id" value="{{post.id}}" class="btn"><i class="fas fa-lg fa-heart like-red">a</i></button>#}
+{#    </form>#}
+
+{% load custom_filter %}
+{{ post|is_like:user }}
+{{ like_posts|get_likes:post.id }}

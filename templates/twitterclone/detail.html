@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load custom_filter %}
+
+{% block content %}
+
+<h1>detail page</h1>
+<p>内容：{{ post.text }}</p>
+<p>#{{ post.tag }}</p>
+{% if user.is_authenticated %}
+{% if post.author == login_user %}
+<button><a href="{% url 'twitterclone:edit' post.pk %}">編集</a></button>
+<button><a href="{% url 'twitterclone:delete' post.pk %}">削除</a></button>
+{% endif %}
+
+<div id="like">
+<div class="like_posts_{{post.id}}">
+    {{ post|is_like:login_user }}
+    {{ like_posts|get_likes:post.id }}
+</div>
+</div>
+{%  endif %}
+
+<script>
+    $(document).on('click', '.like', function () {
+        var id = $(this).attr("id");
+        do_like(id)
+    });
+
+
+    function do_like(post_id) {
+        $.ajax({
+                url: `../../${post_id}/like`,
+                type: 'get'
+            })
+            .done((data) => {
+                $('.like_posts_' + post_id).html(data);
+            })
+    }
+</script>
+
+
+{% endblock %}
