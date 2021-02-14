@@ -1,8 +1,8 @@
 import pdb
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from twitterclone.forms import PostAddForm
-from twitterclone.models import Post, Tag
+from app.forms import PostAddForm
+from app.models import Post, Tag
 from django.test import TestCase
 
 class PostAddFormTests(TestCase):

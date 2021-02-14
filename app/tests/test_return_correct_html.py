@@ -5,8 +5,8 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase, RequestFactory, Client
 from django.urls import reverse
-from twitterclone.models import Post, Tag
-from twitterclone.views import IndexView, DetailView, EditView, post_new, delete, Likes
+from app.models import Post, Tag
+from app.views import IndexView, DetailView, EditView, post_new, delete, Likes
 
 
 class HtmlTests(TestCase):

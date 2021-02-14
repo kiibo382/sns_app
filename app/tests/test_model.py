@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-from twitterclone.models import Post, Tag, Like
+from app.models import Post, Tag, Like
 
 
 class TagAssertion(TestCase):

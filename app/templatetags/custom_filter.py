@@ -1,7 +1,7 @@
 from django import template
 from django.utils.safestring import mark_safe
 
-from twitterclone.models import Like
+from app.models import Like
 
 register = template.Library()
 

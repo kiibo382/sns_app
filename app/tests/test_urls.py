@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.urls import resolve
-from twitterclone.views import post_new, DetailView, IndexView, EditView, delete, Likes
+from app.views import post_new, DetailView, IndexView, EditView, delete, Likes
 
 class UrlResolveTests(TestCase):
     def test_url_resolves_to_index_view(self):
