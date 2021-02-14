@@ -4,9 +4,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
 
-from twitterclone.models import Post, Tag, Like
+from app.models import Post, Tag, Like
 from django.test import TestCase, RequestFactory
-from twitterclone.views import Likes
+from app.views import Likes
 
 class SaveLikeRequestTests(TestCase):
     @classmethod
